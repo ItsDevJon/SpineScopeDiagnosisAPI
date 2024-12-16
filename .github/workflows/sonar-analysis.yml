@@ -2,9 +2,7 @@ name: SonarQube Analysis
 on:
   push:
     branches:
-      - develop
-  schedule:
-    - cron: '0 0 * * *'  # Runs every day at 00:00 UTC
+      - main
   workflow_dispatch:     # Allows manual triggering of the workflow
 
 jobs:
