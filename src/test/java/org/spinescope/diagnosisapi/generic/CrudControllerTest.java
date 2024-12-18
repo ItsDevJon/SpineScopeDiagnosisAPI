@@ -154,9 +154,9 @@ class CrudControllerTest {
   
 }
 
-class TestCrudController extends CrudController<String, Long> {
+class TestCrudController extends AbstractCrudController<String, Long, TestCrudService> {
 
-    public TestCrudController(CrudService<String, Long> service) {
+    public TestCrudController(TestCrudService service) {
         super(service);
     }
 

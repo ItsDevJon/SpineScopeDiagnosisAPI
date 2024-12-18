@@ -92,17 +92,14 @@ class AbstractCrudServiceTest {
 
         // Arrange
         Long id = 1L;
-        String entity = "entity";
 
         // Act
-        // when(repository.findById(Mockito.any(Long.class))).thenReturn(Optional.ofNullable(entity));
         doNothing().when(repository).deleteById(id);
 
         service.deleteById(id);
 
         // Assert
         verify(repository, times(1)).deleteById(id);
-        // assertAll(() -> service.deleteById(id));
 
     }
 

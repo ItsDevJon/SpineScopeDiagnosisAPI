@@ -4,11 +4,11 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public abstract class AbstractCrudService<T, ID, R extends CrudRepository<T, ID>> implements CrudService<T, ID> {
+public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
 
-    protected final R repository;
+    protected final CrudRepository<T, ID> repository;
 
-    public AbstractCrudService(R repository) {
+    public AbstractCrudService(CrudRepository<T, ID> repository) {
         this.repository = repository;
     }
 
