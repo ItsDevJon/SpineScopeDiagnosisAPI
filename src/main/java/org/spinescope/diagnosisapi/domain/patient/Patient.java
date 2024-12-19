@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.spinescope.diagnosisapi.domain.diagnosis.Diagnosis;
@@ -19,6 +20,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 @Entity
 public class Patient {
 
