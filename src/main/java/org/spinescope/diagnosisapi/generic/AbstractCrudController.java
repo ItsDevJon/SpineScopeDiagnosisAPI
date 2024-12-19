@@ -7,7 +7,7 @@ public abstract class AbstractCrudController<T, ID, S extends AbstractCrudServic
 
     protected final S service;
 
-    public AbstractCrudController(S service) {
+    protected AbstractCrudController(S service) {
         this.service = service;
     }
 
