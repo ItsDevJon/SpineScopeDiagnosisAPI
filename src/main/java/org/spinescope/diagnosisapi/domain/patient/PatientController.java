@@ -8,11 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/patients")
 public class PatientController extends AbstractCrudController<Patient, Integer, PatientService> {
 
-    private final PatientService service;
-
     public PatientController(PatientService service) {
         super(service);
-        this.service = service;
     }
 
     @Override

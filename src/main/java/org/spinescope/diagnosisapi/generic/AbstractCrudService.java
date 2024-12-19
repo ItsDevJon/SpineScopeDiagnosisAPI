@@ -8,7 +8,7 @@ public abstract class AbstractCrudService<T, ID> implements CrudService<T, ID> {
 
     protected final CrudRepository<T, ID> repository;
 
-    public AbstractCrudService(CrudRepository<T, ID> repository) {
+    protected AbstractCrudService(CrudRepository<T, ID> repository) {
         this.repository = repository;
     }
 

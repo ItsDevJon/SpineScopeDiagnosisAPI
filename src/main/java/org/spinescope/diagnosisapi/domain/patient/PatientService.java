@@ -6,15 +6,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class PatientService extends AbstractCrudService<Patient, Integer> {
 
-    private final PatientRepository repository;
+    private final PatientRepository patientRepository;
 
     public PatientService(PatientRepository repository) {
         super(repository);
-        this.repository = repository;
+        this.patientRepository = repository;
     }
 
     public Patient getByNameAndSurname(String name, String surname) {
-        return repository.findByNameAndSurname(name, surname).orElse(null);
+        return patientRepository.findByNameAndSurname(name, surname).orElse(null);
     }
 
 }
