@@ -1,4 +1,4 @@
-package org.spinescope.diagnosisapi.generic;
+package org.spinescope.diagnosisapi.domain.base;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

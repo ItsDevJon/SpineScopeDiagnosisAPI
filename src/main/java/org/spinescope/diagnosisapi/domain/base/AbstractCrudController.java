@@ -1,4 +1,4 @@
-package org.spinescope.diagnosisapi.generic;
+package org.spinescope.diagnosisapi.domain.base;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

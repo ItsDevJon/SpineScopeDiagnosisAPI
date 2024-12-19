@@ -1,6 +1,6 @@
 package org.spinescope.diagnosisapi.domain.patient;
 
-import org.spinescope.diagnosisapi.generic.AbstractCrudService;
+import org.spinescope.diagnosisapi.domain.base.AbstractCrudService;
 import org.springframework.stereotype.Service;
 
 @Service

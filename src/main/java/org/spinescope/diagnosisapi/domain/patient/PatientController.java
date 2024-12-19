@@ -1,6 +1,6 @@
 package org.spinescope.diagnosisapi.domain.patient;
 
-import org.spinescope.diagnosisapi.generic.AbstractCrudController;
+import org.spinescope.diagnosisapi.domain.base.AbstractCrudController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
