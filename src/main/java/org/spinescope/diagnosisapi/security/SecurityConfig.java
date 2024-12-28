@@ -20,18 +20,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+        final String ROLE_ADMIN = UserType.ADMIN.name();
+        final String ROLE_DOCTOR = UserType.DOCTOR.name();
+
         http
                 .csrf(AbstractHttpConfigurer::disable)  // Disable CSRF for API endpoints
                 .authorizeHttpRequests(auth -> auth
 
-                        // Allow 'GET' operations to all users
-                        .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole(UserType.ADMIN.name(), UserType.DOCTOR.name())
+                        // Grant ADMIN full access to all endpoints
+                        .requestMatchers("/api/**").hasRole(ROLE_ADMIN)
 
-                        // Allow 'POST / PUT / DELETE' operations to ADMIN users
-                        .requestMatchers(HttpMethod.POST, "/api/**").hasRole(UserType.ADMIN.name())
-                        .requestMatchers(HttpMethod.PUT, "/api/**").hasRole(UserType.ADMIN.name())
-                        .requestMatchers(HttpMethod.DELETE, "/api/**").hasRole(UserType.ADMIN.name())
+                        // Grant DOCTOR permission to perform GET requests on /api/patients/**
+                        .requestMatchers(HttpMethod.GET, "/api/patients/**").hasRole(ROLE_DOCTOR)
 
+                        // Fallback for any other requests
                         .anyRequest().authenticated()
 
                 )
