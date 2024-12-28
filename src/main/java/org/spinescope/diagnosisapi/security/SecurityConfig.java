@@ -25,7 +25,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
                         // Allow 'GET' operations to all users
-                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole(UserType.ADMIN.name(), UserType.DOCTOR.name())
 
                         // Allow 'POST / PUT / DELETE' operations to ADMIN users
                         .requestMatchers(HttpMethod.POST, "/api/**").hasRole(UserType.ADMIN.name())
