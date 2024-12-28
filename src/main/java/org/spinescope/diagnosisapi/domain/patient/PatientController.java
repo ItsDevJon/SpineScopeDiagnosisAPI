@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@RequestMapping(value = "/patients")
+@RequestMapping(value = "/api/patients")
 public class PatientController extends AbstractCrudController<Patient, Integer, PatientService> {
 
     public PatientController(PatientService service) {
