@@ -1,29 +1,22 @@
 package org.spinescope.diagnosisapi.domain.user;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.spinescope.diagnosisapi.domain.base.AbstractCrudService;
+import org.spinescope.diagnosisapi.domain.patient.Patient;
+import org.spinescope.diagnosisapi.domain.patient.PatientRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
-public class UserService implements UserDetailsService {
+public class UserService extends AbstractCrudService<UserEntity, Integer> {
 
     private final UserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        UserEntity userEntity = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-        return User
-                .withUsername(userEntity.getUsername())
-                .password(userEntity.getPassword())
-                .roles(userEntity.getUserType().name())
-                .build();
-
+    public UserService(UserRepository repository) {
+        super(repository);
+        this.userRepository = repository;
     }
+
+    public UserEntity getByUsername(String username) {
+        return userRepository.findByUsername(username).orElse(null);
+    }
+
 }
