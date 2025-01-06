@@ -1,9 +1,10 @@
 package org.spinescope.diagnosisapi.domain.user;
 
 import org.spinescope.diagnosisapi.domain.base.AbstractCrudService;
-import org.spinescope.diagnosisapi.domain.patient.Patient;
-import org.spinescope.diagnosisapi.domain.patient.PatientRepository;
+
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService extends AbstractCrudService<UserEntity, Integer> {
@@ -15,8 +16,8 @@ public class UserService extends AbstractCrudService<UserEntity, Integer> {
         this.userRepository = repository;
     }
 
-    public UserEntity getByUsername(String username) {
-        return userRepository.findByUsername(username).orElse(null);
+    public Optional<UserEntity> getByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
 }
