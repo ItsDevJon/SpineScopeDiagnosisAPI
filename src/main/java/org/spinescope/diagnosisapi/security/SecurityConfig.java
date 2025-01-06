@@ -12,6 +12,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -25,13 +31,15 @@ public class SecurityConfig {
 
         http
                 .csrf(AbstractHttpConfigurer::disable)  // Disable CSRF for API endpoints
+                .cors(Customizer.withDefaults())  // Enable CORS
                 .authorizeHttpRequests(auth -> auth
+
+                        // Grant DOCTOR permission to perform GET requests on /api/patients/**
+                        .requestMatchers(HttpMethod.POST, "/auth/login").hasAnyRole(ROLE_ADMIN, ROLE_DOCTOR)
+                        .requestMatchers("/api/patients/**").hasAnyRole(ROLE_ADMIN, ROLE_DOCTOR)
 
                         // Grant ADMIN full access to all endpoints
                         .requestMatchers("/api/**").hasRole(ROLE_ADMIN)
-
-                        // Grant DOCTOR permission to perform GET requests on /api/patients/**
-                        .requestMatchers(HttpMethod.GET, "/api/patients/**").hasRole(ROLE_DOCTOR)
 
                         // Fallback for any other requests
                         .anyRequest().authenticated()
@@ -49,6 +57,27 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+
+        // Allowed origins
+        config.setAllowedOrigins(List.of("http://localhost:5173"));
+
+        // Allow all HTTP methods (GET, POST, PUT, DELETE, etc.)
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        // Allow all headers
+        config.setAllowedHeaders(List.of("*"));
+
+        // Allow credentials (cookies, authorization headers, etc.)
+        config.setAllowCredentials(true);
+
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
     }
 
 }
