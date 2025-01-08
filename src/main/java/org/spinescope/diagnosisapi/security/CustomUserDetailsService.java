@@ -1,6 +1,8 @@
-package org.spinescope.diagnosisapi.domain.user;
+package org.spinescope.diagnosisapi.security;
 
 import lombok.RequiredArgsConstructor;
+import org.spinescope.diagnosisapi.domain.user.UserEntity;
+import org.spinescope.diagnosisapi.domain.user.UserRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
