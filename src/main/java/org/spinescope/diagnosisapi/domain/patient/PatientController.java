@@ -13,7 +13,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/api/patients")
-public class PatientController extends AbstractCrudController<Patient, Integer, PatientService> {
+public class PatientController extends AbstractCrudController<PatientEntity, Integer, PatientService> {
 
     public PatientController(PatientService service) {
         super(service);
@@ -22,7 +22,7 @@ public class PatientController extends AbstractCrudController<Patient, Integer, 
     @GetMapping("/{patientId}/diagnoses")
     public ResponseEntity<Set<Diagnosis>> getPatientDiagnoses(@PathVariable Integer patientId) {
 
-        Optional<Patient> optionalPatient = service.getById(patientId);
+        Optional<PatientEntity> optionalPatient = service.getById(patientId);
 
         return optionalPatient.map(patient -> ResponseEntity.ok(patient.getDiagnoses()))
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -32,7 +32,7 @@ public class PatientController extends AbstractCrudController<Patient, Integer, 
     @GetMapping("/{patientId}/diagnoses/{diagnosisId}")
     public ResponseEntity<Diagnosis> getDiagnosisById(@PathVariable Integer patientId, @PathVariable Integer diagnosisId) {
 
-        Optional<Patient> optionalPatient = service.getById(patientId);
+        Optional<PatientEntity> optionalPatient = service.getById(patientId);
 
         return optionalPatient.map(patient -> patient.getDiagnoses().stream()
                 .filter(diagnosis -> diagnosis.getId().equals(diagnosisId))
@@ -44,7 +44,7 @@ public class PatientController extends AbstractCrudController<Patient, Integer, 
     }
 
     @Override
-    public boolean entityExists(Patient patient) {
+    public boolean entityExists(PatientEntity patient) {
         return service.getByNameAndSurname(patient.getName(), patient.getSurname()) != null;
     }
 

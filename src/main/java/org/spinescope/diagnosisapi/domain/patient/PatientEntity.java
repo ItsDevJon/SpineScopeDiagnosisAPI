@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 
+import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +23,8 @@ import java.util.Set;
 @Setter
 @EqualsAndHashCode
 @Entity
-public class Patient {
+@Table(name = "Patient")
+public class PatientEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,11 +3,8 @@ package org.spinescope.diagnosisapi.domain.patient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.spinescope.diagnosisapi.domain.base.AbstractCrudController;
 import org.spinescope.diagnosisapi.domain.diagnosis.Diagnosis;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,14 +24,14 @@ public class PatientControllerTest {
 
     private PatientController mockController;
 
-    private Patient patient;
+    private PatientEntity patient;
     private Diagnosis diagnosis;
 
     @BeforeEach
     void setUp() {
         mockController = new PatientController(mockService); // Use the real controller
 
-        patient = new Patient();
+        patient = new PatientEntity();
         patient.setId(1);
         patient.setName("John");
         patient.setSurname("Doe");
