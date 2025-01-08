@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +16,8 @@ import java.time.LocalDate;
 @Setter
 @EqualsAndHashCode
 @Entity
-public class Diagnosis {
+@Table(name = "Diagnosis")
+public class DiagnosisEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +29,6 @@ public class Diagnosis {
 
     @Column(name = "disease", nullable = false, length = 100)
     private String disease;
-
-    @Column(name = "accuracy", nullable = false)
-    private Integer accuracy;
 
     @Column(name = "image")
     private byte[] image;

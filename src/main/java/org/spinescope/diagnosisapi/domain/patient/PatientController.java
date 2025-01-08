@@ -1,7 +1,7 @@
 package org.spinescope.diagnosisapi.domain.patient;
 
 import org.spinescope.diagnosisapi.domain.base.AbstractCrudController;
-import org.spinescope.diagnosisapi.domain.diagnosis.Diagnosis;
+import org.spinescope.diagnosisapi.domain.diagnosis.DiagnosisEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,17 +12,17 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
-@RequestMapping(value = "/patients")
-public class PatientController extends AbstractCrudController<Patient, Integer, PatientService> {
+@RequestMapping(value = "/api/patients")
+public class PatientController extends AbstractCrudController<PatientEntity, Integer, PatientService> {
 
     public PatientController(PatientService service) {
         super(service);
     }
 
     @GetMapping("/{patientId}/diagnoses")
-    public ResponseEntity<Set<Diagnosis>> getPatientDiagnoses(@PathVariable Integer patientId) {
+    public ResponseEntity<Set<DiagnosisEntity>> getPatientDiagnoses(@PathVariable Integer patientId) {
 
-        Optional<Patient> optionalPatient = service.getById(patientId);
+        Optional<PatientEntity> optionalPatient = service.getById(patientId);
 
         return optionalPatient.map(patient -> ResponseEntity.ok(patient.getDiagnoses()))
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -30,9 +30,9 @@ public class PatientController extends AbstractCrudController<Patient, Integer, 
     }
 
     @GetMapping("/{patientId}/diagnoses/{diagnosisId}")
-    public ResponseEntity<Diagnosis> getDiagnosisById(@PathVariable Integer patientId, @PathVariable Integer diagnosisId) {
+    public ResponseEntity<DiagnosisEntity> getDiagnosisById(@PathVariable Integer patientId, @PathVariable Integer diagnosisId) {
 
-        Optional<Patient> optionalPatient = service.getById(patientId);
+        Optional<PatientEntity> optionalPatient = service.getById(patientId);
 
         return optionalPatient.map(patient -> patient.getDiagnoses().stream()
                 .filter(diagnosis -> diagnosis.getId().equals(diagnosisId))
@@ -44,7 +44,7 @@ public class PatientController extends AbstractCrudController<Patient, Integer, 
     }
 
     @Override
-    public boolean entityExists(Patient patient) {
+    public boolean entityExists(PatientEntity patient) {
         return service.getByNameAndSurname(patient.getName(), patient.getSurname()) != null;
     }
 

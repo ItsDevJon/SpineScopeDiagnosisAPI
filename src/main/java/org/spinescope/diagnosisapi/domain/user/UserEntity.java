@@ -1,5 +1,6 @@
 package org.spinescope.diagnosisapi.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -7,6 +8,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +19,8 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Entity
-public class User {
+@Table(name = "User")
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +31,7 @@ public class User {
     private String username;
 
     @Column(name = "password", nullable = false, length = 100)
+    @JsonIgnore
     private String password;
 
     @Enumerated(EnumType.STRING)
