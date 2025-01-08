@@ -40,7 +40,6 @@ public class PatientControllerTest {
 
         diagnosis = new DiagnosisEntity();
         diagnosis.setId(1);
-        diagnosis.setAccuracy(90);
         diagnosis.setDate(LocalDate.now());
         diagnosis.setDisease("Scoliosis");
 

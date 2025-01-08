@@ -30,9 +30,6 @@ public class DiagnosisEntity {
     @Column(name = "disease", nullable = false, length = 100)
     private String disease;
 
-    @Column(name = "accuracy", nullable = false)
-    private Integer accuracy;
-
     @Column(name = "image")
     private byte[] image;
 
