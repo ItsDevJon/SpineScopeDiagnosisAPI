@@ -28,8 +28,13 @@
     </scm>
     <properties>
         <java.version>21</java.version>
-        <sonar.organization>spinescope</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
+        <!-- SonarQube properties -->
+        <sonar.host.url>https://spinescope.duckdns.org/sonar/</sonar.host.url>
+        <sonar.projectKey>SpineScopeDiagnosisAPI</sonar.projectKey>
+        <sonar.projectName>SpineScopeDiagnosisAPI</sonar.projectName>
+        <sonar.exclusions>**/security/**</sonar.exclusions>
+
     </properties>
     <dependencies>
 
