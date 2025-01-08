@@ -3,7 +3,7 @@ package org.spinescope.diagnosisapi.domain.auth;
 import lombok.RequiredArgsConstructor;
 
 import org.spinescope.diagnosisapi.domain.user.UserEntity;
-import org.spinescope.diagnosisapi.security.BasicAuthDecoder;
+import org.spinescope.diagnosisapi.utils.BasicAuthDecoder;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +25,12 @@ public class AuthController {
     public ResponseEntity<String> login(@RequestHeader("Authorization") String authHeader) {
 
         // Decode the Basic Auth header
-        String[] credentials = BasicAuthDecoder.decodeBasicAuth(authHeader);
-        if (credentials == null) {
+        Optional<String[]> optionalCredentials = BasicAuthDecoder.decodeBasicAuth(authHeader);
+        if (optionalCredentials.isEmpty()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Authorization header");
         }
+
+        String[] credentials = optionalCredentials.get();
 
         String username = credentials[0];
         String password = credentials[1];

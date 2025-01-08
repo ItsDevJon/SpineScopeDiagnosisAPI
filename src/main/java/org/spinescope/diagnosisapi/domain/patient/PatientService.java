@@ -4,7 +4,7 @@ import org.spinescope.diagnosisapi.domain.base.AbstractCrudService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PatientService extends AbstractCrudService<Patient, Integer> {
+public class PatientService extends AbstractCrudService<PatientEntity, Integer> {
 
     private final PatientRepository patientRepository;
 
@@ -13,7 +13,7 @@ public class PatientService extends AbstractCrudService<Patient, Integer> {
         this.patientRepository = repository;
     }
 
-    public Patient getByNameAndSurname(String name, String surname) {
+    public PatientEntity getByNameAndSurname(String name, String surname) {
         return patientRepository.findByNameAndSurname(name, surname).orElse(null);
     }
 

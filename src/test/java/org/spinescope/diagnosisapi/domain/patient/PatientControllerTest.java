@@ -3,12 +3,9 @@ package org.spinescope.diagnosisapi.domain.patient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.spinescope.diagnosisapi.domain.base.AbstractCrudController;
-import org.spinescope.diagnosisapi.domain.diagnosis.Diagnosis;
+import org.spinescope.diagnosisapi.domain.diagnosis.DiagnosisEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -27,23 +24,22 @@ public class PatientControllerTest {
 
     private PatientController mockController;
 
-    private Patient patient;
-    private Diagnosis diagnosis;
+    private PatientEntity patient;
+    private DiagnosisEntity diagnosis;
 
     @BeforeEach
     void setUp() {
         mockController = new PatientController(mockService); // Use the real controller
 
-        patient = new Patient();
+        patient = new PatientEntity();
         patient.setId(1);
         patient.setName("John");
         patient.setSurname("Doe");
         patient.setAge(25);
         patient.setGender(Gender.MALE);
 
-        diagnosis = new Diagnosis();
+        diagnosis = new DiagnosisEntity();
         diagnosis.setId(1);
-        diagnosis.setAccuracy(90);
         diagnosis.setDate(LocalDate.now());
         diagnosis.setDisease("Scoliosis");
 
@@ -54,7 +50,7 @@ public class PatientControllerTest {
     void getPatientDiagnoses_existingPatient_returnsDiagnoses() {
         when(mockService.getById(1)).thenReturn(Optional.of(patient));
 
-        ResponseEntity<Set<Diagnosis>> response = mockController.getPatientDiagnoses(1);
+        ResponseEntity<Set<DiagnosisEntity>> response = mockController.getPatientDiagnoses(1);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(patient.getDiagnoses(), response.getBody());
@@ -64,7 +60,7 @@ public class PatientControllerTest {
     void getPatientDiagnoses_nonExistingPatient_returns404() {
         when(mockService.getById(1)).thenReturn(Optional.empty());
 
-        ResponseEntity<Set<Diagnosis>> response = mockController.getPatientDiagnoses(1);
+        ResponseEntity<Set<DiagnosisEntity>> response = mockController.getPatientDiagnoses(1);
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
@@ -73,7 +69,7 @@ public class PatientControllerTest {
     void getDiagnosisById_existingPatientAndDiagnosis_returnsDiagnosis() {
         when(mockService.getById(1)).thenReturn(Optional.of(patient));
 
-        ResponseEntity<Diagnosis> response = mockController.getDiagnosisById(1, diagnosis.getId());
+        ResponseEntity<DiagnosisEntity> response = mockController.getDiagnosisById(1, diagnosis.getId());
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(diagnosis, response.getBody());
@@ -83,7 +79,7 @@ public class PatientControllerTest {
     void getDiagnosisById_existingPatientAndNonExistingDiagnosis_returns404() {
         when(mockService.getById(1)).thenReturn(Optional.of(patient));
 
-        ResponseEntity<Diagnosis> response = mockController.getDiagnosisById(patient.getId(), 2); // Non-existing diagnosis ID
+        ResponseEntity<DiagnosisEntity> response = mockController.getDiagnosisById(patient.getId(), 2); // Non-existing diagnosis ID
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
@@ -92,7 +88,7 @@ public class PatientControllerTest {
     void getDiagnosisById_nonExistingPatient_returns404() {
         when(mockService.getById(55)).thenReturn(Optional.empty());
 
-        ResponseEntity<Diagnosis> response = mockController.getDiagnosisById(55, diagnosis.getId()); // Non-existing patient ID
+        ResponseEntity<DiagnosisEntity> response = mockController.getDiagnosisById(55, diagnosis.getId()); // Non-existing patient ID
 
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }

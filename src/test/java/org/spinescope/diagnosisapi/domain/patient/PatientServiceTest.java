@@ -19,13 +19,13 @@ public class PatientServiceTest {
 
     private PatientService patientService;
 
-    private Patient patient;
+    private PatientEntity patient;
 
     @BeforeEach
     void setUp() {
         patientService = new PatientService(mockPatientRepository);
 
-        patient = new Patient();
+        patient = new PatientEntity();
         patient.setId(1);
         patient.setName("John");
         patient.setSurname("Doe");
@@ -39,7 +39,7 @@ public class PatientServiceTest {
         when(mockPatientRepository.findByNameAndSurname("John", "Doe")).thenReturn(Optional.of(patient));
 
         // Act
-        Patient result = patientService.getByNameAndSurname("John", "Doe");
+        PatientEntity result = patientService.getByNameAndSurname("John", "Doe");
 
         // Assert
         assertNotNull(result);
@@ -59,7 +59,7 @@ public class PatientServiceTest {
         when(mockPatientRepository.findByNameAndSurname("Jane", "Doe")).thenReturn(Optional.empty());
 
         // Act
-        Patient result = patientService.getByNameAndSurname("Jane", "Doe");
+        PatientEntity result = patientService.getByNameAndSurname("Jane", "Doe");
 
         // Assert
         assertNull(result);
