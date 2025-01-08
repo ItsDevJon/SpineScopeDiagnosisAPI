@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.spinescope.diagnosisapi.domain.diagnosis.Diagnosis;
+import org.spinescope.diagnosisapi.domain.diagnosis.DiagnosisEntity;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -55,6 +55,6 @@ public class PatientEntity {
 
     @OneToMany
     @JoinColumn(name = "patient_id")
-    private Set<Diagnosis> diagnoses = new LinkedHashSet<>();
+    private Set<DiagnosisEntity> diagnoses = new LinkedHashSet<>();
 
 }

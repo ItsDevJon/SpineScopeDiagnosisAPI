@@ -1,7 +1,7 @@
 package org.spinescope.diagnosisapi.domain.patient;
 
 import org.spinescope.diagnosisapi.domain.base.AbstractCrudController;
-import org.spinescope.diagnosisapi.domain.diagnosis.Diagnosis;
+import org.spinescope.diagnosisapi.domain.diagnosis.DiagnosisEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +20,7 @@ public class PatientController extends AbstractCrudController<PatientEntity, Int
     }
 
     @GetMapping("/{patientId}/diagnoses")
-    public ResponseEntity<Set<Diagnosis>> getPatientDiagnoses(@PathVariable Integer patientId) {
+    public ResponseEntity<Set<DiagnosisEntity>> getPatientDiagnoses(@PathVariable Integer patientId) {
 
         Optional<PatientEntity> optionalPatient = service.getById(patientId);
 
@@ -30,7 +30,7 @@ public class PatientController extends AbstractCrudController<PatientEntity, Int
     }
 
     @GetMapping("/{patientId}/diagnoses/{diagnosisId}")
-    public ResponseEntity<Diagnosis> getDiagnosisById(@PathVariable Integer patientId, @PathVariable Integer diagnosisId) {
+    public ResponseEntity<DiagnosisEntity> getDiagnosisById(@PathVariable Integer patientId, @PathVariable Integer diagnosisId) {
 
         Optional<PatientEntity> optionalPatient = service.getById(patientId);
 

@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Setter
 @EqualsAndHashCode
 @Entity
-public class Diagnosis {
+public class DiagnosisEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
