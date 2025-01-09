@@ -38,7 +38,7 @@
         <sonar.host.url>https://spinescope.duckdns.org/sonar/</sonar.host.url>
         <sonar.projectKey>SpineScopeDiagnosisAPI</sonar.projectKey>
         <sonar.projectName>SpineScopeDiagnosisAPI</sonar.projectName>
-        <sonar.exclusions>**/security/**</sonar.exclusions>
+        <sonar.exclusions>**/security/**, **/SpineScopeDiagnosisApiApplication.java</sonar.exclusions>
 
     </properties>
     <dependencies>
